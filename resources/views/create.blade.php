@@ -4,8 +4,10 @@
 <form>
   <div class="form-group">
     <label for="to">To:</label>
-    <select class="" name="">
-
+    <select class="form-control" name="to" id="to">
+      @foreach ($users as $user)
+        <option value="{{ $user->id }}">{{ $user->name } - {{ $user->email }}</option>
+      @endforeach
     </select>
   </div>
   <div class="form-group">
@@ -18,4 +20,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 @endsection
