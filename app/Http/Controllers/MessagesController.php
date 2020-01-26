@@ -38,7 +38,7 @@ class MessagesController extends Controller
     }
 
     /**
-     * Send the message
+     * Save the message
      *
      */
      public function send(Request $request){
@@ -46,5 +46,16 @@ class MessagesController extends Controller
          'subject' => 'required',
          'message' => 'required'
        ]);
+
+       $message = New Message();
+
+       $message->user_id_from = Auth::id();
+       $message->user_id_to = $request->input('to');
+       $message->subject = $request->input('subject');
+       $message->body = $request->input('message');
+
+       $message->save();
+
+       return redirect()->to('/home')->with('status', 'Message sent succesfully');
      }
 }
