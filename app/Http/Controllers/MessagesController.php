@@ -36,4 +36,15 @@ class MessagesController extends Controller
 
       return view('create')->with('users', $users);
     }
+
+    /**
+     * Send the message
+     *
+     */
+     public function send(Request $request){
+       $this->validate($request, [
+         'subject' => 'required',
+         'message' => 'required'
+       ]);
+     }
 }
