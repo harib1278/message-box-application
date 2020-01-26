@@ -6,7 +6,7 @@
     <label for="to">To:</label>
     <select class="form-control" name="to" id="to">
       @foreach ($users as $user)
-        <option value="{{ $user->id }}">{{ $user->name } - {{ $user->email }}</option>
+        <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->email }}</option>
       @endforeach
     </select>
   </div>
