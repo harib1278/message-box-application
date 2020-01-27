@@ -26,7 +26,7 @@ class MessagesController extends Controller
 
     /**
      * Create message to send
-     * TODO: change to get method
+     * TODO: change to post method
      *
      */
     public function create(int $id = 0, String $subject = ''){
@@ -87,6 +87,10 @@ class MessagesController extends Controller
      public function read(int $id){
        $message = Message::with('userFrom')->find($id);
 
+       if ($message === null) {
+         return view('read')->with('message', false);
+       }
+
        // If message opened = set the read flag
        $message->read = true;
        $message->save();
@@ -95,5 +99,25 @@ class MessagesController extends Controller
        return view('read')->with('message', $message);
      }
 
+
+     /**
+      * Delete messages
+      *
+      */
+     public function delete(int $id){
+       $message = Message::find($id);
+
+       if ($message === null) {
+         return view('read')->with([
+           'errors'  => 'Message not found',
+           'messsge' => false
+         ]);
+       }
+
+       $message->deleted = true;
+       $message->save();
+
+       return redirect()->to('/home')->with('status', 'Message deleted successfully');
+     }
 
 }
