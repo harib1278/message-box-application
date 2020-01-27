@@ -19,7 +19,7 @@ class MessagesController extends Controller
     public function index(){
 
       // Get the messages passed to the currently logged in user using the Auth facade
-      $messages = Message::with('userFrom')->where('user_id_to', Auth::id())->get();
+      $messages = Message::with('userFrom')->where('user_id_to', Auth::id())->notDeleted()->get();
 
       return view('home')->with('messages', $messages);
     }
@@ -95,13 +95,12 @@ class MessagesController extends Controller
        $message->read = true;
        $message->save();
 
-
        return view('read')->with('message', $message);
      }
 
 
      /**
-      * Delete messages
+      * Delete message
       *
       */
      public function delete(int $id){
@@ -114,10 +113,41 @@ class MessagesController extends Controller
          ]);
        }
 
+       // Set the soft delete flag
        $message->deleted = true;
        $message->save();
 
        return redirect()->to('/home')->with('status', 'Message deleted successfully');
      }
 
+     /**
+      * View deleted messages
+      *
+      */
+     public function deleted(){
+       $messages = Message::with('userFrom')->where('user_id_to', Auth::id())->Deleted()->get();
+
+       return view('deleted')->with('messages', $messages);
+     }
+
+     /**
+      * Restore messages
+      *
+      */
+     public function restore(int $id){
+       $message = Message::find($id);
+
+       if ($message === null) {
+         return view('read')->with([
+           'errors'  => 'Message not found',
+           'messsge' => false
+         ]);
+       }
+
+       // Set the soft delete flag
+       $message->deleted = false;
+       $message->save();
+
+       return redirect()->to('/home')->with('status', 'Message restored successfully');
+     }
 }

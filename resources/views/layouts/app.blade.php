@@ -65,7 +65,9 @@
                                     <a class="dropdown-item" href="{{ route('create') }}">
                                         Compose message
                                     </a>
-
+                                    <a class="dropdown-item" href="{{ route('deleted-messages') }}">
+                                        Trashbin
+                                    </a>
                                     <hr>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
