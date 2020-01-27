@@ -7,5 +7,5 @@
   <p> Message body:</p>
   <p>{{ $message->body}}<p/>
   <hr>
-  <a href="{{ route('reply', $meessage->userFrom->id) }}" class="btn btn-primary">Reply</a>
+  <a href="{{ route('create', [$message->userFrom->id, $message->subject]) }}" class="btn btn-primary">Reply</a>
 @endsection

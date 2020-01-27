@@ -10,7 +10,7 @@ use App\User;
 class MessagesController extends Controller
 {
     /*
-    * Call the middle ware method here instead of in the route definition
+    * Call the middleware method here instead of in the route definition
     */
     public function __construct(){
       $this->middleware('auth');
@@ -26,15 +26,26 @@ class MessagesController extends Controller
 
     /**
      * Create message to send
+     * TODO: change to get method
      *
      */
-    public function create(){
-      //Stop the user from being able to send message to themselves
-      $users = User::where('id', '!=', Auth::id())->get();
+    public function create(int $id = 0, String $subject = ''){
+      // Check for get param and assign 0 if not set
+      if ($id === 0) {
+        //Stop the user from being able to send message to themselves
+        $users = User::where('id', '!=', Auth::id())->get();
+      } else {
+        $users = User::where('id', $id)->get();
+      }
 
-      //dd($users);
+      // Deal with re prefix on replies
+      if ($subject !== '')
+        $subject = 'Re: ' . $subject;
 
-      return view('create')->with('users', $users);
+      return view('create')->with([
+        'users'   => $users,
+        'subject' => $subject
+      ]);
     }
 
     /**
