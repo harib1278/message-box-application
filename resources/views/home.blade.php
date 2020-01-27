@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<h4>Inbox</h4>
   @if (count($messages) > 0)
     <ul class="list-group">
       @foreach($messages as $message)

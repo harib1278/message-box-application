@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<h4>Trash</h4>
   @if (count($messages) > 0)
     <ul class="list-group">
       @foreach($messages as $message)
@@ -11,6 +12,6 @@
       @endforeach
     </ul>
   @else
-    <p>No messages!</p>
+    <p>You have No messages!</p>
   @endif
 @endsection
