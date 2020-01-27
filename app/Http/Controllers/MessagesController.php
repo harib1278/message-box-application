@@ -58,4 +58,10 @@ class MessagesController extends Controller
 
        return redirect()->to('/home')->with('status', 'Message sent succesfully');
      }
+
+     public function sent(){
+       $messages = Message::with('userTo')->where('user_id_from', Auth::id())->get();
+
+       return view('sent')->with('messages', $messages);
+     }
 }

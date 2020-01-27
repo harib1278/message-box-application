@@ -13,4 +13,12 @@ class Message extends Model
   public function userFrom(){
     return $this->belongsTo('\App\User', 'user_id_from');
   }
+
+  /**
+   * Create 1 to many relationship between the user table and messages table
+   *
+   */
+  public function userTo(){
+    return $this->belongsTo('\App\User', 'user_id_to');
+  }
 }
