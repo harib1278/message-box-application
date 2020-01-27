@@ -91,6 +91,11 @@ class MessagesController extends Controller
          return view('read')->with('message', false);
        }
 
+       // Stop users reading each others messages
+       if (Auth::id() !== $message->user_id_to){
+         return redirect()->to('/home');
+       }
+
        // If message opened = set the read flag
        $message->read = true;
        $message->save();
@@ -111,6 +116,11 @@ class MessagesController extends Controller
            'errors'  => 'Message not found',
            'messsge' => false
          ]);
+       }
+
+       // Stop users deleting each others messages
+       if (Auth::id() !== $message->user_id_to){
+         return redirect()->to('/home');
        }
 
        // Set the soft delete flag
