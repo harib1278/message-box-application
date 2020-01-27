@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/home', 'MessagesController@index')->name('home');
 Route::get('/create', 'MessagesController@create')->name('create');
 Route::get('/sent', 'MessagesController@sent')->name('sent-messages');
+Route::get('/read/{id}', 'MessagesController@read')->name('read');
 
 // POST routes
 Route::post('/send', 'MessagesController@send')->name('send');

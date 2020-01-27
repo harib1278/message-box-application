@@ -56,13 +56,16 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="{{ route('create') }}">
-                                        Send message
+                                    <a class="dropdown-item" href="{{ url('/home') }}">
+                                        Inbox
                                     </a>
                                     <a class="dropdown-item" href="{{ route('sent-messages') }}">
-                                        Your sent messages
+                                        Outbox
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('create') }}">
+                                        Compose message
+                                    </a>
+
                                     <hr>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

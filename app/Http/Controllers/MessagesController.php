@@ -59,9 +59,25 @@ class MessagesController extends Controller
        return redirect()->to('/home')->with('status', 'Message sent succesfully');
      }
 
+     /**
+      * Render the Outbox page
+      *
+      */
      public function sent(){
        $messages = Message::with('userTo')->where('user_id_from', Auth::id())->get();
 
        return view('sent')->with('messages', $messages);
      }
+
+     /**
+      * Render the Message page
+      *
+      */
+     public function read(int $id){
+       $message = Message::with('userFrom')->find($id);
+
+       return view('read')->with('message', $message);
+     }
+
+
 }
