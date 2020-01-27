@@ -75,7 +75,7 @@ class MessagesController extends Controller
       *
       */
      public function sent(){
-       $messages = Message::with('userTo')->where('user_id_from', Auth::id())->get();
+       $messages = Message::with('userTo')->where('user_id_from', Auth::id())->orderBy('created_at', 'desc')->get();
 
        return view('sent')->with('messages', $messages);
      }
@@ -86,6 +86,11 @@ class MessagesController extends Controller
       */
      public function read(int $id){
        $message = Message::with('userFrom')->find($id);
+
+       // If message opened = set the read flag
+       $message->read = true;
+       $message->save();
+
 
        return view('read')->with('message', $message);
      }
